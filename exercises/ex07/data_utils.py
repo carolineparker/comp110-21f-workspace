@@ -41,14 +41,52 @@ def columnar(row_table: list[dict[str, str]]) -> dict[str, list[str]]:
     return result
 
 
-def select(x: dict[str, list[str]], y: list[str]) -> dict[str, list[str]]:
+def select(data_dictionary: dict[str, list[str]], data_list: list[str]) -> dict[str, list[str]]:
+    """Select a value from a list and add it to a dictionary."""
+    result_dict: dict[str, list[str]] = {}
+    for value in data_list:
+        result_dict[value] = data_dictionary[value]
+    
+    return result_dict
 
-    result_dict: dict = {}
 
-    for value in y:
-        result_dict[value] = x[value]
+def head(data_dictionary: dict[str, list[str]], rows: int) -> dict[str, list[str]]:
+    """Return a certain number of key value pairs."""
+    result_dict: dict[str, list[str]] = {}
+    for key in data_dictionary:
+        empty_list: list[str] = []
+        i: int = 0
+        if rows > len(data_dictionary):
+            return data_dictionary
+        while i < rows: 
+            empty_list.append(data_dictionary[key][i])
+            i += 1
+        result_dict[key] = empty_list
+            
+    return result_dict
+
+
+def concat(x: dict[str, list[str]], y: dict[str, list[str]]) -> dict[str, list[str]]:
+    """Combine two dictionaries."""
+    result_dict: dict[str, list[str]] = {}
+    for key in x:
+        result_dict[key] = x[key]
+    for key in y:
+        if key in result_dict:
+            result_dict[key] += y[key]
+        else:
+            result_dict[key] = y[key]
 
     return result_dict
 
 
-def head
+def count(data_list: list[str]) -> dict[str, int]:
+    """Count occurences of strings in a list."""
+    result_dict: dict[str, int] = {}
+    for key in data_list:
+        if key in result_dict:
+            result_dict[key] += 1
+        else:
+            result_dict[key] = 1
+
+    return result_dict
